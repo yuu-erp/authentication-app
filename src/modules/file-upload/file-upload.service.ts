@@ -7,4 +7,4 @@ export class FileUploadService {
       message: "Upload file!"
     }
   }
-}
+} 
