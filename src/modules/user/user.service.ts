@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor() {}
 
   async create() {

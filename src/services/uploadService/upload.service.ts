@@ -11,4 +11,10 @@ export class UploadService {
       api_secret: this.configurationService.cloudinaryApiSecret,
     });
   }
+
+  async upload() {
+    return {
+      message: "Upload file"
+    }
+  }
 }
