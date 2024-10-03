@@ -1,36 +1,39 @@
-import {
-    Injectable
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './user.entity';
 
 @Injectable()
 export class UserService {
-  constructor() {}
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
 
-  async create() {
-    return { message: 'Create User!'}
+  // Tạo một user mới
+  create(user: Partial<User>): Promise<User> {
+    const newUser = this.userRepository.create(user);
+    return this.userRepository.save(newUser);
   }
 
-  findManyWithPagination() {
-    return { message: 'findManyWithPagination User!'}
+  // Lấy tất cả các user
+  findAll(): Promise<User[]> {
+    return this.userRepository.find();
   }
 
-  findById() {
-    return { message: 'findById User!'}
+  // Lấy user theo ID
+  findOne(id: number): Promise<User> {
+    return this.userRepository.findOneBy({ id });
   }
 
-  findByEmail() {
-    return { message: 'findByEmail User!'}
+  // Cập nhật user theo ID
+  async update(id: number, updateData: Partial<User>): Promise<User> {
+    await this.userRepository.update(id, updateData);
+    return this.findOne(id);
   }
 
-  findBySocialIdAndProvider() {
-    return { message: 'findBySocialIdAndProvider User!'}
-  }
-
-  async update() {
-    return { message: 'update User!'}
-  }
-
-  async remove() {
-    return { message: 'remove User!'}
+  // Xóa user theo ID
+  async delete(id: number): Promise<void> {
+    await this.userRepository.delete(id);
   }
 }
