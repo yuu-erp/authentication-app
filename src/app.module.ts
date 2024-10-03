@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { ConfigurationModule } from './config/configuration.module';
-import { PrismaModule } from './services/prismaService/prisma.module';
+import { ConfigModules } from './config/config.module';
+import { TypeOrmConfigModule } from './database/typeorm-config.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
-  imports: [
-    ConfigurationModule,
-    PrismaModule,
-  ],
+  imports: [ConfigModules, TypeOrmConfigModule, UserModule],
   controllers: [AppController],
   providers: [],
 })
